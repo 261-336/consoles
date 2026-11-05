@@ -1,0 +1,21 @@
+# Настройки и временные файлы IDE
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+# Папки сборки Visual Studio, CLion, VS Code и CMake
+out/
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+# Результаты компиляции
+*.obj
+*.o
+*.exe
+*.pdb
+*.dll
+*.so
+*.dylib
