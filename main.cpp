@@ -139,8 +139,9 @@ void list_oldest_console() {
             cout << setw(2) << i + 1 << " " << console_to_string(consoles[i]) << endl;
         }
     }
-
 }
+
+
 
 enum Command {
     List,
@@ -183,7 +184,7 @@ void perform_command(Command command) {
 
 
 int main(int, char **) {
-
+    std::setlocale(LC_ALL, "RU_ru.UTF-8");
     bool cont = true;
 
     while (cont) {
