@@ -133,7 +133,7 @@ enum Command {
 
 string command_description(Command command) {
     switch (command) {
-        case List: return "Вывести список консолей";
+        case List: return "Вывести список игровых консолей";
         case ListBackwards: return "Вывести список консолей в обратном порядке";
         // добавьте сюда описание команды
         case Exit: return "Выход";
