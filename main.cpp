@@ -85,16 +85,16 @@ Console consoles[] = {
 
 string console_type_to_string(ConsoleType consle_type) {
     switch (consle_type) {
-        case Dedicated: return "Dedicated";
-        case Home: return "Home";
-        case Handheld: return "Handheld";
-        case Home_add_on: return "Home consol add-on";
-        case Hybrid: return "Hybrid";
-        default: return "Unknown";
+    case Dedicated: return "Dedicated";
+    case Home: return "Home";
+    case Handheld: return "Handheld";
+    case Home_add_on: return "Home consol add-on";
+    case Hybrid: return "Hybrid";
+    default: return "Unknown";
     }
 }
 
-string console_to_string(Console &console) {
+string console_to_string(Console& console) {
     stringstream ss;
     ss << std::left << setw(33) << console.name << " ";
     ss << std::left << setw(18) << console_type_to_string(console.type) << " ";
@@ -124,44 +124,66 @@ void list_backwards() {
 
 // добавьте свою функцию здесь
 
+void list_longest() {
+    size_t conolesSize = std::size(consoles); // Вычисляем длину всего массива
+    size_t max_lengh = 0; // Считаем максимальную длнину  названия консоли
+    int longest_index = -1; // Определяем индекс подходящей под условие консоли
+    for (size_t i = 0; i < conolesSize; i++) {
+        size_t currect_lenght = consoles[i].name.length();
+        if (currect_lenght > max_lengh) {
+            max_lengh = currect_lenght;
+            longest_index = i;
+
+        }
+    }
+    if (longest_index != -1) {
+        cout << "Самое длинное имя консоли: " << consoles[longest_index].name << endl;
+        cout << "Длина ее названия: " << max_lengh << endl;
+    }
+    else {
+        cout << "Массив консолей пуст." << endl;
+    }
+}
+
 enum Command {
     List,
     ListBackwards,
-    // добавьте сюда идентификатор команды
+    ListLongest,  // добавьте сюда идентификатор команды
     Exit
 };
 
 string command_description(Command command) {
     switch (command) {
-        case List: return "Вывести список консолей";
-        case ListBackwards: return "Вывести список консолей в обратном порядке";
-        // добавьте сюда описание команды
-        case Exit: return "Выход";
-        default:
-            stringstream ss;
-            ss << "Команда №" << std::to_string(command);
-            return ss.str();
+    case List: return "Вывести список консолей";
+    case ListBackwards: return "Вывести список консолей в обратном порядке";
+    case ListLongest: return "Выводит самое длинное название консоли"; // добавьте сюда описание команды
+    case Exit: return "Выход";
+    default:
+        stringstream ss;
+        ss << "Команда №" << std::to_string(command);
+        return ss.str();
     }
 }
 
 void perform_command(Command command) {
     switch (command) {
-        case List:
-            list();
-            break;
-        case ListBackwards:
-            list_backwards();
-            break;
-        // добавьте вызов своей функции здесь. не забудьте break
-        default:
-            cout << "Действие команды не определено" << endl;
+    case List:
+        list();
+        break;
+    case ListBackwards:
+        list_backwards();
+        break;
+    case ListLongest: // добавьте вызов своей функции здесь. не забудьте break
+        list_longest();
+        break;
+    default:
+        cout << "Действие команды не определено" << endl;
     }
 }
 
 
-int main(int, char **) {
-    std::setlocale(LC_ALL, "RU_ru.UTF-8");
-
+int main(int, char**) {
+    std::setlocale(LC_ALL, "RU_ru.UTF-8")
     bool cont = true;
 
     while (cont) {
@@ -179,7 +201,8 @@ int main(int, char **) {
 
         if (selectedCommand == Command::Exit) {
             cont = false;
-        } else {
+        }
+        else {
             perform_command(static_cast<Command>(selectedCommand));
         }
     }
