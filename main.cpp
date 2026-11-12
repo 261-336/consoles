@@ -123,11 +123,31 @@ void list_backwards() {
 }
 
 // добавьте свою функцию здесь
+void list_oldest_console() {
+    size_t consolesSize = std::size(consoles);
+
+    size_t min_year = 3000;
+
+    for (int i = 0; i < consolesSize; i++) {
+        if (consoles[i].release_year < min_year) {
+            min_year = consoles[i].release_year;
+        }
+    }
+
+    for (int i = 0; i < consolesSize; i++) {
+        if (consoles[i].release_year == min_year) {
+            cout << setw(2) << i + 1 << " " << console_to_string(consoles[i]) << endl;
+        }
+    }
+}
+
+
 
 enum Command {
     List,
     ListBackwards,
     // добавьте сюда идентификатор команды
+    ListOldest,
     Exit
 };
 
@@ -136,6 +156,7 @@ string command_description(Command command) {
         case List: return "Вывести список консолей";
         case ListBackwards: return "Вывести список консолей в обратном порядке";
         // добавьте сюда описание команды
+        case ListOldest: return "Вывести самую старую консоль";
         case Exit: return "Выход";
         default:
             stringstream ss;
@@ -153,6 +174,9 @@ void perform_command(Command command) {
             list_backwards();
             break;
         // добавьте вызов своей функции здесь. не забудьте break
+        case ListOldest:
+            list_oldest_console();
+            break;
         default:
             cout << "Действие команды не определено" << endl;
     }
@@ -161,7 +185,6 @@ void perform_command(Command command) {
 
 int main(int, char **) {
     std::setlocale(LC_ALL, "RU_ru.UTF-8");
-
     bool cont = true;
 
     while (cont) {
