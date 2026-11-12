@@ -2,6 +2,8 @@
 #include <sstream>
 #include <iomanip>
 #include <iterator>
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 using namespace std;
 
 enum ConsoleType {
@@ -183,6 +185,8 @@ void perform_command(Command command) {
 
 
 int main(int, char **) {
+    std::setlocale(LC_ALL, "RU_ru.UTF-8");
+    SetConsoleOutputCP(CP_UTF8);
 
     bool cont = true;
 
