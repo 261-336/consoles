@@ -125,6 +125,26 @@ void list_backwards() {
     }
 }
 
+// добавьте свою функцию здесь
+
+void print_field(const string &text, int width, bool align_left) {
+    int text_width = 0;
+    for (size_t i = 0; i < text.size(); i++) {
+        unsigned char c = static_cast<unsigned char>(text[i]);
+        if ((c & 0xC0) != 0x80) {
+            text_width++;
+        }
+    }
+    int padding = width > text_width ? width - text_width : 0;
+    if (!align_left) {
+        cout << string(padding, ' ');
+    }
+    cout << text;
+    if (align_left) {
+        cout << string(padding, ' ');
+    }
+}
+
 void consoles_sold_by_company() {
     map<string, double> units_by_company;
     map<string, int> models_by_company;
@@ -142,24 +162,6 @@ void consoles_sold_by_company() {
         }
         return a.first < b.first;
     });
-
-    auto print_field = [](const string &text, int width, bool align_left) {
-        int text_width = 0;
-        for (size_t i = 0; i < text.size(); i++) {
-            unsigned char c = static_cast<unsigned char>(text[i]);
-            if ((c & 0xC0) != 0x80) {
-                text_width++;
-            }
-        }
-        int padding = width > text_width ? width - text_width : 0;
-        if (!align_left) {
-            cout << string(padding, ' ');
-        }
-        cout << text;
-        if (align_left) {
-            cout << string(padding, ' ');
-        }
-    };
 
     print_field("Фирма", 26, true);
     print_field("Моделей", 10, false);
@@ -179,6 +181,7 @@ void consoles_sold_by_company() {
 enum Command {
     List,
     ListBackwards,
+    // добавьте сюда идентификатор команды
     ConsolesSoldByCompany,
     Exit
 };
@@ -187,6 +190,7 @@ string command_description(Command command) {
     switch (command) {
         case List: return "Вывести список консолей";
         case ListBackwards: return "Вывести список консолей в обратном порядке";
+        // добавьте сюда описание команды
         case ConsolesSoldByCompany: return "Посчитать, сколько консолей продала каждая фирма";
         case Exit: return "Выход";
         default:
@@ -204,6 +208,7 @@ void perform_command(Command command) {
         case ListBackwards:
             list_backwards();
             break;
+        // добавьте вызов своей функции здесь. не забудьте break
         case ConsolesSoldByCompany:
             consoles_sold_by_company();
             break;
